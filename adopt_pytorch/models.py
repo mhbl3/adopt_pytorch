@@ -1,4 +1,4 @@
-import config
+import adopt_pytorch.config as config
 import torch
 import logging
 import warnings

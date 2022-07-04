@@ -1,4 +1,4 @@
-import config
+import adopt_pytorch.config as config
 import logging
 import numpy as np
 import pandas as pd

@@ -1,5 +1,5 @@
 import logging
-import config
+import adopt_pytorch.config as config
 import numpy as np
 import pandas as pd
 from typing import List, Union
