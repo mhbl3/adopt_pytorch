@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __author__ = 'Marc-Henri Bleu-Laine'
 
 setup(
@@ -11,6 +11,7 @@ setup(
                 'developed by NASA (https://github.com/nasa/ADOPT).'
                 'Improvements were made to include time-series of different lengths',
     packages=find_packages(),
+    url='https://github.com/mhbl3/adopt_pytorch',
     zip_safe=True,
     install_requires=[
         'pandas==1.3.4',
