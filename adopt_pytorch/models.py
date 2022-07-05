@@ -179,6 +179,10 @@ def train_binary_model(clf, X_train, y_train,
 
                 # Forward pass
                 outputs = clf(batch_x)
+                # Show info
+                logger.debug(f"Epoch-Iteration:{epoch}-{iteration}")
+                logger.debug(f"outputs: {outputs.flatten()}")
+                logger.debug(f"targets: {batch_y.view(-1).flatten()}")
                 # Get the loss
                 loss = criterion(outputs.flatten(), batch_y.view(-1).flatten())
 
@@ -262,7 +266,7 @@ def train_binary_model(clf, X_train, y_train,
 
     except Exception as E:
         logger.warn(E)
-        raise
+        logger.info(f"Fail safe on {iteration} for epoch {epoch}")
 
     if model_out_cpu and clf.device != "cpu":
         # Puts back model on cpu
