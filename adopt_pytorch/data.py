@@ -257,18 +257,18 @@ class MILData():
 
         if not isinstance(self.trainX, list):
             if data_set == 'train':
-                return self.trainX[idx, 0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.trainX[idx, 0, self.param_index_dict[self.flight_id_column]])
             elif data_set == 'test':
-                return self.testX[idx, 0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.testX[idx, 0, self.param_index_dict[self.flight_id_column]])
             else:
-                return self.valX[idx, 0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.valX[idx, 0, self.param_index_dict[self.flight_id_column]])
         else:
             if data_set == 'train':
-                return self.trainX[idx][0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.trainX[idx][0, self.param_index_dict[self.flight_id_column]])
             elif data_set == 'test':
-                return self.testX[idx][0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.testX[idx][0, self.param_index_dict[self.flight_id_column]])
             else:
-                return self.valX[idx][0, self.param_index_dict[self.flight_id_column]].astype(int)
+                return int(self.valX[idx][0, self.param_index_dict[self.flight_id_column]])
 
     def retrieve_original_flight_data(self, idx: int, data_set: str = 'train',
                                       parameter: str = None):
