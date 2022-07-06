@@ -85,7 +85,7 @@ def plot_precursor_scores(precursor_scores_dict: dict,
     fig.tight_layout(pad=0.95)
 
     if filename is not None:
-        fig.save(filename, dpi=dpi)
+        fig.savefig(filename, dpi=dpi)
 
 
 def axis_setup(ax: Axes, title: str = None,
