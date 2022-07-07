@@ -17,5 +17,5 @@ LABEL_SIZE = 12
 log = {'data': logging.INFO,
        'feature_ranking': logging.INFO,
        'models': logging.INFO,
-       'visualization': 'debug'
+       'visualization': logging.INFO
        }

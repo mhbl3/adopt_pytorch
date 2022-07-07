@@ -94,7 +94,9 @@ def disturb_parameters(clf: ADOPT, input_values: Union[torch.Tensor, np.ndarray]
 
 
 def compute_features_precursor_scores(precursor_score_list: List[dict],
-                                      standard_deviation_scale: List[int] = None):
+                                      standard_deviation_scale: List[int] = None,
+                                      threshold: float = 0.5,
+                                      threshold_index: int = None):
 
     if standard_deviation_scale is None:
         standard_deviation_scale = config.standard_deviation_scale
@@ -105,7 +107,8 @@ def compute_features_precursor_scores(precursor_score_list: List[dict],
     for precursor_score_dict in precursor_score_list:
         # Shape is N, L, D=1
         original_precursor_score: np.ndarray = precursor_score_dict['original_score'].flatten()
-        start, end = identify_start_end_threshold(original_precursor_score)
+        start, end = identify_start_end_threshold(original_precursor_score, threshold,
+                                                  threshold_index)
         for param, value in precursor_score_dict.items():
             if param in ['original_score', 'prediction_likelihood']:
                 # skip
@@ -133,7 +136,8 @@ def compute_features_precursor_scores(precursor_score_list: List[dict],
     return param_score_list_of_dict
 
 
-def identify_start_end_threshold(precursor_score: np.ndarray, threshold=0.5):
+def identify_start_end_threshold(precursor_score: np.ndarray, threshold=0.5,
+                                 threshold_index: int = None):
 
     if len(precursor_score.shape) > 1:
         precursor_score = precursor_score.flatten()
@@ -152,6 +156,8 @@ def identify_start_end_threshold(precursor_score: np.ndarray, threshold=0.5):
     end_final = []
 
     for s, e in zip(*[start, end]):
+        if (threshold_index is not None) and (( s > threshold_index) or (e > threshold_index)):
+            continue
         if s != e:
             start_final.append(s)
             end_final.append(e+1)

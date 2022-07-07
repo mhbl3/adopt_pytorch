@@ -9,8 +9,7 @@ from matplotlib import pyplot as plt
 from adopt_pytorch.feature_ranking import identify_start_end_threshold
 
 
-if 'debug' in config.log['visualization'].lower():
-    logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=config.log['visualization'])
 logger = logging.getLogger('visualization')
 
 FIGSIZE = config.FIGSIZE
@@ -25,8 +24,9 @@ def plot_precursor_scores(precursor_scores_dict: dict,
                           sorted_precursor_params_list: list = None,
                           score_list: list = None,
                           standard_deviation_scale: List[int] = None,
-                          thresold: float = 0.5,
+                          threshold: float = 0.5,
                           flight_data: pd.DataFrame = None,
+                          threshold_index: int = None,
                           filename: str = None, dpi: int = 300):
 
     if standard_deviation_scale is None:
@@ -70,7 +70,7 @@ def plot_precursor_scores(precursor_scores_dict: dict,
                 ax2.plot(flight_data[title].values, label='Feature Values', c='k', ls='dashed')
                 ax2 = axis_setup(ax2, y_label='Feature Value')
 
-        start_idx, end_idx = identify_start_end_threshold(data, thresold)
+        start_idx, end_idx = identify_start_end_threshold(data, threshold, threshold_index)
         for start, end in zip(*[start_idx, end_idx]):
             ax.axvspan(start, end,
                        alpha=0.25,
